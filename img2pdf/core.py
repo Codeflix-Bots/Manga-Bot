@@ -16,11 +16,7 @@ def fld2pdf(folder: Path, out: str):
     files.sort(key=lambda x: x.name)
     thumb_path = make_thumb(folder, files)
     pdf = folder / f'{out}.pdf'
-    try:
-        img2pdf(files, pdf)
-    except BaseException as e:
-        print(f'Image to pdf failed with exception: {e}')
-        old_img2pdf(files, pdf)
+    img2pdf(files, pdf)
     return pdf, thumb_path
 
 
