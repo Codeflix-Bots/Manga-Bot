@@ -1,3 +1,4 @@
+import re
 from typing import List, AsyncIterable
 import json
 from urllib.parse import urlparse, urljoin, quote, quote_plus
@@ -58,15 +59,14 @@ class MangasInClient(MangaClient):
         return mangas
 
     def chapters_from_page(self, page: bytes, manga: MangaCard = None):
-        bs = BeautifulSoup(page, "html.parser")
 
-        lis: List[PageElement] = bs.findAll("li", recursive=True)
-        lis: List[PageElement] = [li for li in lis if isinstance(li.get('class'), list) and len(li.get('class')) > 0 and li.get('class')[0].startswith('volume-')]
+        regex = rb"var .*? = (.*?);"
 
-        items = [li for li in lis]
+        chapters_text = max([var for var in re.findall(regex, page, re.DOTALL) if b'manga_id' in var], key=len)
+        chapters = json.loads(chapters_text)
 
-        texts = [self.build_chapter_name(item) for item in items]
-        links = [item.findNext('daka').a.get('href') for item in items]
+        texts = [chapter['number'] for chapter in chapters]
+        links = [f"{manga.url}/{chapter['slug']}" for chapter in chapters]
 
         return list(map(lambda x: MangaChapter(self, x[0], x[1], manga, []), zip(texts, links)))
 
