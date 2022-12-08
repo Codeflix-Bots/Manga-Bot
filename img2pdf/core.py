@@ -45,6 +45,22 @@ def pil_image(path: Path) -> (BytesIO, int, int):
     return membuf, width, height
 
 
+def unicode_to_latin1(s):
+    # Substitute the ' character
+    s = s.replace('\u2019', '\x92')
+    # Substitute the " character
+    s = s.replace('\u201d', '\x94')
+    # Substitute the - character
+    s = s.replace('\u2013', '\x96')
+    # Substitute the ... character
+    s = s.replace('\u2026', '\x85')
+    # Substitute the ... character
+    s = s.replace('\u2014', '\x97')
+    # Substitute the ... character
+    s = s.replace('\u201c', '\x93')
+    return s
+
+
 def img2pdf(files: List[Path], out: Path):
     pdf = FPDF('P', 'pt')
     for imageFile in files:
@@ -56,7 +72,7 @@ def img2pdf(files: List[Path], out: Path):
 
         img_bytes.close()
 
-    pdf.set_title(out.stem)
+    pdf.set_title(unicode_to_latin1(out.stem))
     pdf.output(out, "F")
     pdf.close()
 
