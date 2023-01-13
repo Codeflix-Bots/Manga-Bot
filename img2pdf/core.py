@@ -74,7 +74,6 @@ def img2pdf(files: List[Path], out: Path):
 
     pdf.set_title(unicode_to_latin1(out.stem))
     pdf.output(out, "F")
-    pdf.close()
 
 
 def make_thumb(folder, files):
