@@ -365,7 +365,7 @@ async def manga_click(client, callback: CallbackQuery, pagination: Pagination = 
     else:
         await bot.edit_message_reply_markup(
             callback.from_user.id,
-            pagination.message.message_id,
+            pagination.message.id,
             reply_markup=buttons
         )
 
@@ -500,7 +500,7 @@ async def favourite_click(client: Client, callback: CallbackQuery):
         "Unsubscribe" if fav else "Subscribe",
         f"{'unfav' if fav else 'fav'}_{data}"
     )]
-    await bot.edit_message_reply_markup(callback.from_user.id, callback.message.message_id,
+    await bot.edit_message_reply_markup(callback.from_user.id, callback.message.id,
                                         InlineKeyboardMarkup(keyboard))
     db_manga = await db.get(MangaName, manga.url)
     if not db_manga:
@@ -520,7 +520,7 @@ def is_pagination_data(callback: CallbackQuery):
         return False
     if pagination.message.chat.id != callback.from_user.id:
         return False
-    if pagination.message.message_id != callback.message.message_id:
+    if pagination.message.id != callback.message.id:
         return False
     return True
 
