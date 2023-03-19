@@ -89,7 +89,7 @@ class MangaBuddyClient(MangaClient):
 
         imgs = re.findall(regex, content)[0].decode().split(',')
 
-        images_url = [self.img_server + img for img in imgs]
+        images_url = [img for img in imgs]
 
         return images_url
 
