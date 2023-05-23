@@ -10,6 +10,7 @@ import json
 import pyrogram.errors
 from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery, InputMediaDocument
 
+from config import env_vars, dbname
 from img2cbz.core import fld2cbz
 from img2pdf.core import fld2pdf
 from img2tph.core import img2tph
@@ -110,20 +111,12 @@ def get_buttons_for_options(user_options: int):
     return InlineKeyboardMarkup(buttons)
 
 
-env_file = "env.json"
-if os.path.exists(env_file):
-    with open(env_file) as f:
-        env_vars = json.loads(f.read())
-else:
-    env_vars = dict(os.environ)
-
 bot = Client('bot',
              api_id=int(env_vars.get('API_ID')),
              api_hash=env_vars.get('API_HASH'),
              bot_token=env_vars.get('BOT_TOKEN'),
              max_concurrent_transmissions=3)
 
-dbname = env_vars.get('DATABASE_URL_PRIMARY') or env_vars.get('DATABASE_URL')
 if dbname:
     DB(dbname)
 else:
