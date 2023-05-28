@@ -25,42 +25,42 @@ def upgrade() -> None:
 
     if 'chapterfile' not in tables:
         op.create_table('chapterfile',
-        sa.Column('url', sqlmodel.sql.sqltypes.AutoString(), nullable=False),
-        sa.Column('file_id', sqlmodel.sql.sqltypes.AutoString(), nullable=False),
-        sa.Column('file_unique_id', sqlmodel.sql.sqltypes.AutoString(), nullable=False),
-        sa.Column('cbz_id', sqlmodel.sql.sqltypes.AutoString(), nullable=False),
-        sa.Column('cbz_unique_id', sqlmodel.sql.sqltypes.AutoString(), nullable=False),
-        sa.Column('telegraph_url', sqlmodel.sql.sqltypes.AutoString(), nullable=False),
-        sa.PrimaryKeyConstraint('url')
-        )
+                        sa.Column('url', sqlmodel.sql.sqltypes.AutoString(), nullable=False),
+                        sa.Column('file_id', sqlmodel.sql.sqltypes.AutoString(), nullable=False),
+                        sa.Column('file_unique_id', sqlmodel.sql.sqltypes.AutoString(), nullable=False),
+                        sa.Column('cbz_id', sqlmodel.sql.sqltypes.AutoString(), nullable=False),
+                        sa.Column('cbz_unique_id', sqlmodel.sql.sqltypes.AutoString(), nullable=False),
+                        sa.Column('telegraph_url', sqlmodel.sql.sqltypes.AutoString(), nullable=False),
+                        sa.PrimaryKeyConstraint('url')
+                        )
 
     if 'lastchapter' not in tables:
         op.create_table('lastchapter',
-        sa.Column('url', sqlmodel.sql.sqltypes.AutoString(), nullable=False),
-        sa.Column('chapter_url', sqlmodel.sql.sqltypes.AutoString(), nullable=True),
-        sa.PrimaryKeyConstraint('url')
-        )
+                        sa.Column('url', sqlmodel.sql.sqltypes.AutoString(), nullable=False),
+                        sa.Column('chapter_url', sqlmodel.sql.sqltypes.AutoString(), nullable=True),
+                        sa.PrimaryKeyConstraint('url')
+                        )
 
     if 'manganame' not in tables:
         op.create_table('manganame',
-        sa.Column('url', sqlmodel.sql.sqltypes.AutoString(), nullable=False),
-        sa.Column('name', sqlmodel.sql.sqltypes.AutoString(), nullable=True),
-        sa.PrimaryKeyConstraint('url')
-        )
+                        sa.Column('url', sqlmodel.sql.sqltypes.AutoString(), nullable=False),
+                        sa.Column('name', sqlmodel.sql.sqltypes.AutoString(), nullable=True),
+                        sa.PrimaryKeyConstraint('url')
+                        )
 
     if 'mangaoutput' not in tables:
         op.create_table('mangaoutput',
-        sa.Column('user_id', sqlmodel.sql.sqltypes.AutoString(), nullable=False),
-        sa.Column('output', sa.Integer(), nullable=True),
-        sa.PrimaryKeyConstraint('user_id')
-        )
+                        sa.Column('user_id', sqlmodel.sql.sqltypes.AutoString(), nullable=False),
+                        sa.Column('output', sa.Integer(), nullable=True),
+                        sa.PrimaryKeyConstraint('user_id')
+                        )
 
     if 'subscription' not in tables:
         op.create_table('subscription',
-        sa.Column('url', sqlmodel.sql.sqltypes.AutoString(), nullable=False),
-        sa.Column('user_id', sqlmodel.sql.sqltypes.AutoString(), nullable=False),
-        sa.PrimaryKeyConstraint('url', 'user_id')
-        )
+                        sa.Column('url', sqlmodel.sql.sqltypes.AutoString(), nullable=False),
+                        sa.Column('user_id', sqlmodel.sql.sqltypes.AutoString(), nullable=False),
+                        sa.PrimaryKeyConstraint('url', 'user_id')
+                        )
     # ### end Alembic commands ###
 
 

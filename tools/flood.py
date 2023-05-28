@@ -16,6 +16,7 @@ def retry_on_flood(function: Callable[[Any], Awaitable]):
                 continue
             except pyrogram.errors.RPCError as err:
                 if err.MESSAGE == 'FloodWait':
+                    print(f'FloodWait, waiting {err.x} seconds')
                     await asyncio.sleep(err.x)
                     continue
                 else:

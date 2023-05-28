@@ -1,5 +1,5 @@
 import os
-from typing import Type, List, TypeVar
+from typing import Type, List, TypeVar, Optional
 
 from sqlalchemy.ext.asyncio import create_async_engine
 from sqlmodel import SQLModel, Field, Session, select, delete
@@ -12,11 +12,11 @@ T = TypeVar("T")
 
 class ChapterFile(SQLModel, table=True):
     url: str = Field(primary_key=True)
-    file_id: str
-    file_unique_id: str
-    cbz_id: str
-    cbz_unique_id: str
-    telegraph_url: str
+    file_id: Optional[str]
+    file_unique_id: Optional[str]
+    cbz_id: Optional[str]
+    cbz_unique_id: Optional[str]
+    telegraph_url: Optional[str]
 
 
 class MangaOutput(SQLModel, table=True):

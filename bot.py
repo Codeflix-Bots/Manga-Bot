@@ -12,7 +12,7 @@ from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton, 
 
 from config import env_vars, dbname
 from img2cbz.core import fld2cbz
-from img2pdf.core import fld2pdf
+from img2pdf.core import fld2pdf, fld2thumb
 from img2tph.core import img2tph
 from plugins import MangaClient, ManhuaKoClient, MangaCard, MangaChapter, ManhuaPlusClient, TMOClient, MangaDexClient, \
     MangaSeeClient, MangasInClient, McReaderClient, MangaKakalotClient, ManganeloClient, ManganatoClient, \
@@ -68,6 +68,7 @@ if os.path.exists(cache_dir):
     shutil.rmtree(cache_dir)
 with open("tools/help_message.txt", "r") as f:
     help_msg = f.read()
+
 
 class OutputOptions(enum.IntEnum):
     PDF = 1
@@ -166,9 +167,9 @@ async def on_start(client: Client, message: Message):
 
 
 @bot.on_message(filters=filters.command(['help']))
-async def on_help(client: Client, message: Message): 
+async def on_help(client: Client, message: Message):
     await message.reply(help_msg)
-    
+
 
 @bot.on_message(filters=filters.command(['refresh']))
 async def on_refresh(client: Client, message: Message):
@@ -369,91 +370,95 @@ async def chapter_click(client, data, chat_id):
         locks[chat_id] = asyncio.Lock()
 
     async with locks[chat_id]:
-        cache_channel = env_vars.get("CACHE_CHANNEL")
-        if not cache_channel:
-            return await bot.send_message(chat_id, "Bot cache channel is not configured correctly.")
-
-        # Try convert to int cache_channel, because it can be id or username
-        try:
-            cache_channel = int(cache_channel)
-        except ValueError:
-            pass
-
         chapter = chapters[data]
 
         db = DB()
 
-        chapterFile = await db.get(ChapterFile, chapter.url)
+        chapter_file = await db.get(ChapterFile, chapter.url)
         options = await db.get(MangaOutput, str(chat_id))
         options = options.output if options else (1 << 30) - 1
 
-        caption = '\n'.join([
+        error_caption = '\n'.join([
             f'{chapter.manga.name} - {chapter.name}',
             f'{chapter.get_url()}'
         ])
 
-        download = not chapterFile
-        download = download or options & OutputOptions.PDF and not chapterFile.file_id
-        download = download or options & OutputOptions.CBZ and not chapterFile.cbz_id
-        download = download or options & OutputOptions.Telegraph and not chapterFile.telegraph_url
+        success_caption = f'{chapter.manga.name} - {chapter.name}\n'
+
+        download = not chapter_file
+        download = download or options & OutputOptions.PDF and not chapter_file.file_id
+        download = download or options & OutputOptions.CBZ and not chapter_file.cbz_id
+        download = download or options & OutputOptions.Telegraph and not chapter_file.telegraph_url
         download = download and options & ((1 << len(OutputOptions)) - 1) != 0
 
         if download:
             pictures_folder = await chapter.client.download_pictures(chapter)
             if not chapter.pictures:
-                return await bot.send_message(chat_id, f'There was an error parsing this chapter or chapter is missing' +
-                                              f', please check the chapter at the web\n\n{caption}')
-            ch_name = clean(f'{clean(chapter.manga.name, 25)} - {chapter.name}', 45)
-            try:
-                pdf, thumb_path = fld2pdf(pictures_folder, ch_name)
-            except Exception as e:
-                print(f'Error creating pdf for {chapter.name} - {chapter.manga.name}\n{e}')
-                return await bot.send_message(chat_id, f'There was an error making the pdf for this chapter. '
-                                                       f'Please contact the developer with the name of the manga'
-                                                       f' and the chapter number.')
-            cbz = fld2cbz(pictures_folder, ch_name)
-            telegraph_url = await img2tph(chapter, clean(f'{chapter.manga.name} {chapter.name}'))
+                return await bot.send_message(chat_id,
+                                              f'There was an error parsing this chapter or chapter is missing' +
+                                              f', please check the chapter at the web\n\n{error_caption}')
+            thumb_path = fld2thumb(pictures_folder)
 
-            messages: List[Message] = await retry_on_flood(bot.send_media_group)(cache_channel, [
-                InputMediaDocument(pdf, thumb=thumb_path),
-                InputMediaDocument(cbz, thumb=thumb_path, caption=f'{telegraph_url}')
-            ])
+        chapter_file = chapter_file or ChapterFile(url=chapter.url)
 
-            pdf_m, cbz_m = messages
+        if download and not chapter_file.telegraph_url:
+            chapter_file.telegraph_url = await img2tph(chapter, clean(f'{chapter.manga.name} {chapter.name}'))
 
-            if not chapterFile:
-                await db.add(ChapterFile(url=chapter.url, file_id=pdf_m.document.file_id,
-                                         file_unique_id=pdf_m.document.file_unique_id, cbz_id=cbz_m.document.file_id,
-                                         cbz_unique_id=cbz_m.document.file_unique_id, telegraph_url=telegraph_url))
-            else:
-                chapterFile.file_id, chapterFile.file_unique_id, chapterFile.cbz_id, \
-                chapterFile.cbz_unique_id, chapterFile.telegraph_url = \
-                    pdf_m.document.file_id, pdf_m.document.file_unique_id, cbz_m.document.file_id, \
-                    cbz_m.document.file_unique_id, telegraph_url
-                await db.add(chapterFile)
-
-            shutil.rmtree(pictures_folder)
-
-        chapterFile = await db.get(ChapterFile, chapter.url)
-
-        caption = f'{chapter.manga.name} - {chapter.name}\n'
         if options & OutputOptions.Telegraph:
-            caption += f'[Read on telegraph]({chapterFile.telegraph_url})\n'
-        caption += f'[Read on website]({chapter.get_url()})'
+            success_caption += f'[Read on telegraph]({chapter_file.telegraph_url})\n'
+        success_caption += f'[Read on website]({chapter.get_url()})'
+
+        ch_name = clean(f'{clean(chapter.manga.name, 25)} - {chapter.name}', 45)
+
         media_docs = []
+
         if options & OutputOptions.PDF:
-            media_docs.append(InputMediaDocument(chapterFile.file_id))
+            if chapter_file.file_id:
+                media_docs.append(InputMediaDocument(chapter_file.file_id))
+            else:
+                try:
+                    pdf = fld2pdf(pictures_folder, ch_name)
+                except Exception as e:
+                    print(f'Error creating pdf for {chapter.name} - {chapter.manga.name}\n{e}')
+                    return await bot.send_message(chat_id, f'There was an error making the pdf for this chapter. '
+                                                           f'Forward this message to the bot group to report the '
+                                                           f'error.\n\n{error_caption}')
+                media_docs.append(InputMediaDocument(pdf, thumb=thumb_path))
+
         if options & OutputOptions.CBZ:
-            media_docs.append(InputMediaDocument(chapterFile.cbz_id))
+            if chapter_file.cbz_id:
+                media_docs.append(InputMediaDocument(chapter_file.cbz_id))
+            else:
+                try:
+                    cbz = fld2cbz(pictures_folder, ch_name)
+                except Exception as e:
+                    print(f'Error creating cbz for {chapter.name} - {chapter.manga.name}\n{e}')
+                    return await bot.send_message(chat_id, f'There was an error making the cbz for this chapter. '
+                                                           f'Forward this message to the bot group to report the '
+                                                           f'error.\n\n{error_caption}')
+                media_docs.append(InputMediaDocument(cbz, thumb=thumb_path))
 
         if len(media_docs) == 0:
-            await retry_on_flood(bot.send_message)(chat_id, caption)
-        elif len(media_docs) == 1:
-            await retry_on_flood(bot.send_document)(chat_id, media_docs[0].media, caption=caption)
+            messages: list[Message] = await retry_on_flood(bot.send_message)(chat_id, success_caption)
         else:
-            media_docs[-1].caption = caption
-            await retry_on_flood(bot.send_media_group)(chat_id, media_docs)
-        await asyncio.sleep(1)
+            media_docs[-1].caption = success_caption
+            messages: list[Message] = await retry_on_flood(bot.send_media_group)(chat_id, media_docs)
+
+        # Save file ids
+        if download and media_docs:
+            for message in [x for x in messages if x.document]:
+                if message.document.file_name.endswith('.pdf'):
+                    chapter_file.file_id = message.document.file_id
+                    chapter_file.file_unique_id = message.document.file_unique_id
+                elif message.document.file_name.endswith('.cbz'):
+                    chapter_file.cbz_id = message.document.file_id
+                    chapter_file.cbz_unique_id = message.document.file_unique_id
+
+        if download:
+            shutil.rmtree(pictures_folder, ignore_errors=True)
+            await db.add(chapter_file)
+
+        await asyncio.sleep(5)
 
 
 async def pagination_click(client: Client, callback: CallbackQuery):

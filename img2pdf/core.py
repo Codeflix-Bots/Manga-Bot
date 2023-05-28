@@ -14,10 +14,9 @@ def fld2pdf(folder: Path, out: str):
     
     files = [file for file in folder.glob(r'*') if re.match(r'.*\.(jpg|png|jpeg|webp)', file.name)]
     files.sort(key=lambda x: x.name)
-    thumb_path = make_thumb(folder, files)
     pdf = folder / f'{out}.pdf'
     img2pdf(files, pdf)
-    return pdf, thumb_path
+    return pdf
 
 
 def new_img(path: Path) -> Image.Image:
@@ -74,6 +73,13 @@ def img2pdf(files: List[Path], out: Path):
 
     pdf.set_title(unicode_to_latin1(out.stem))
     pdf.output(out, "F")
+
+
+def fld2thumb(folder: Path):
+    files = [file for file in folder.glob(r'*') if re.match(r'.*\.(jpg|png|jpeg|webp)', file.name)]
+    files.sort(key=lambda x: x.name)
+    thumb_path = make_thumb(folder, files)
+    return thumb_path
 
 
 def make_thumb(folder, files):
