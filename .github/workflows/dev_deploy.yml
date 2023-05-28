@@ -26,7 +26,7 @@ jobs:
         script: |
           cd manga-bot/tg-manga-bot-dev
           git pull origin master
-          docker container rm manga-bot-dev
+          docker container rm -f manga-bot-dev 2> /dev/null || true
           docker build . -t manga-bot-dev
           docker run --name manga-bot-dev --restart=always -d \
           --env BOT_TOKEN=${{ secrets.DEV_BOT_TOKEN }} \
