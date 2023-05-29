@@ -5,6 +5,7 @@ Pillow~=9.0.1
 tgcrypto
 sqlmodel~=0.0.6
 asyncpg
+psycopg2-binary
 aiosqlite
 fpdf2~=2.6.0
 SQLAlchemy~=1.4.31
