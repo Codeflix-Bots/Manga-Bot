@@ -21,6 +21,7 @@ import os
 
 from pyrogram import Client, filters
 from typing import Dict, Tuple, List, TypedDict
+from loguru import logger
 
 from models.db import DB, ChapterFile, Subscription, LastChapter, MangaName, MangaOutput
 from pagination import Pagination
@@ -142,10 +143,10 @@ async def on_private_message(client: Client, message: Message):
             users_in_channel[message.from_user.id] = dt.datetime.now()
             return message.continue_propagation()
     except pyrogram.errors.UsernameNotOccupied:
-        print("Channel does not exist, therefore bot will continue to operate normally")
+        logger.debug("Channel does not exist, therefore bot will continue to operate normally")
         return message.continue_propagation()
     except pyrogram.errors.ChatAdminRequired:
-        print("Bot is not admin of the channel, therefore bot will continue to operate normally")
+        logger.debug("Bot is not admin of the channel, therefore bot will continue to operate normally")
         return message.continue_propagation()
     except pyrogram.errors.UserNotParticipant:
         await message.reply("In order to use the bot you must join it's update channel.",
@@ -419,7 +420,7 @@ async def chapter_click(client, data, chat_id):
                 try:
                     pdf = fld2pdf(pictures_folder, ch_name)
                 except Exception as e:
-                    print(f'Error creating pdf for {chapter.name} - {chapter.manga.name}\n{e}')
+                    logger.exception(f'Error creating pdf for {chapter.name} - {chapter.manga.name}\n{e}')
                     return await bot.send_message(chat_id, f'There was an error making the pdf for this chapter. '
                                                            f'Forward this message to the bot group to report the '
                                                            f'error.\n\n{error_caption}')
@@ -432,7 +433,7 @@ async def chapter_click(client, data, chat_id):
                 try:
                     cbz = fld2cbz(pictures_folder, ch_name)
                 except Exception as e:
-                    print(f'Error creating cbz for {chapter.name} - {chapter.manga.name}\n{e}')
+                    logger.exception(f'Error creating cbz for {chapter.name} - {chapter.manga.name}\n{e}')
                     return await bot.send_message(chat_id, f'There was an error making the cbz for this chapter. '
                                                            f'Forward this message to the bot group to report the '
                                                            f'error.\n\n{error_caption}')
@@ -474,7 +475,7 @@ async def full_page_click(client: Client, callback: CallbackQuery):
         try:
             await chapter_click(client, chapter_data, callback.from_user.id)
         except Exception as e:
-            print(e)
+            logger.exception(e)
         await asyncio.sleep(0.5)
 
 
@@ -547,7 +548,7 @@ async def on_callback_query(client, callback: CallbackQuery):
     try:
         await callback.answer()
     except BaseException as e:
-        print(e)
+        logger.warning(e)
 
 
 async def remove_subscriptions(sub: str):
@@ -557,7 +558,7 @@ async def remove_subscriptions(sub: str):
 
 
 async def update_mangas():
-    print("Updating mangas")
+    logger.debug("Updating mangas")
     db = DB()
     subscriptions = await db.get_all(Subscription)
     last_chapters = await db.get_all(LastChapter)
@@ -589,24 +590,23 @@ async def update_mangas():
                 client_url_dictionary[client].add(url)
 
     for client, urls in client_url_dictionary.items():
-        print('')
-        print(f'Updating {client.name}')
-        print(f'Urls:\t{list(urls)}')
+        logger.debug(f'Updating {client.name}')
+        logger.debug(f'Urls:\t{list(urls)}')
         new_urls = [url for url in urls if not chapters_dictionary.get(url)]
-        print(f'New Urls:\t{new_urls}')
+        logger.debug(f'New Urls:\t{new_urls}')
         to_check = [chapters_dictionary[url] for url in urls if chapters_dictionary.get(url)]
         if len(to_check) == 0:
             continue
         try:
             updated, not_updated = await client.check_updated_urls(to_check)
         except BaseException as e:
-            print(f"Error while checking updates for site: {client.name}, err: ", e)
+            logger.exception(f"Error while checking updates for site: {client.name}, err: {e}")
             updated = []
             not_updated = list(urls)
         for url in not_updated:
             del url_client_dictionary[url]
-        print(f'Updated:\t{list(updated)}')
-        print(f'Not Updated:\t{list(not_updated)}')
+        logger.debug(f'Updated:\t{list(updated)}')
+        logger.debug(f'Not Updated:\t{list(not_updated)}')
 
     updated = dict()
 
@@ -640,23 +640,23 @@ async def update_mangas():
                             chapters[chapter.unique()] = chapter
                 await asyncio.sleep(1)
         except BaseException as e:
-            print(f'An exception occurred getting new chapters for url {url}: {e}')
+            logger.exception(f'An exception occurred getting new chapters for url {url}: {e}')
 
     blocked = set()
     for url, chapter_list in updated.items():
         for chapter in chapter_list:
-            print(f'{chapter.manga.name} - {chapter.name}')
+            logger.debug(f'Updating {chapter.manga.name} - {chapter.name}')
             for sub in subs_dictionary[url]:
                 if sub in blocked:
                     continue
                 try:
                     await chapter_click(bot, chapter.unique(), int(sub))
                 except pyrogram.errors.UserIsBlocked:
-                    print(f'User {sub} blocked the bot')
+                    logger.info(f'User {sub} blocked the bot')
                     await remove_subscriptions(sub)
                     blocked.add(sub)
                 except BaseException as e:
-                    print(f'An exception occurred sending new chapter: {e}')
+                    logger.exception(f'An exception occurred sending new chapter: {e}')
                 await asyncio.sleep(0.5)
             await asyncio.sleep(1)
 
@@ -670,8 +670,8 @@ async def manga_updater():
             await update_mangas()
             elapsed = dt.datetime.now() - start
             wait_time = max((dt.timedelta(seconds=wait_time) - elapsed).total_seconds(), 0)
-            print(f'Time elapsed updating mangas: {elapsed}, waiting for {wait_time}')
+            logger.debug(f'Time elapsed updating mangas: {elapsed}, waiting for {wait_time}')
         except BaseException as e:
-            print(f'An exception occurred during chapters update: {e}')
+            logger.exception(f'An exception occurred during chapters update: {e}')
         if wait_time:
             await asyncio.sleep(wait_time)

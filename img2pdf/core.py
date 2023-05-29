@@ -7,8 +7,6 @@ import re
 
 from PIL import Image
 
-from img2pdf.img_size import get_image_size
-
 
 def fld2pdf(folder: Path, out: str):
     
