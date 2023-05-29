@@ -371,7 +371,7 @@ async def manga_click(client, callback: CallbackQuery, pagination: Pagination = 
 users_lock = asyncio.Lock()
 
 
-def get_user_lock(chat_id: int):
+async def get_user_lock(chat_id: int):
     async with users_lock:
         lock = locks.get(chat_id)
         if not lock:
@@ -380,7 +380,7 @@ def get_user_lock(chat_id: int):
 
 
 async def chapter_click(client, data, chat_id):
-    async with get_user_lock(chat_id):
+    async with await get_user_lock(chat_id):
         await send_manga_chapter(client, data, chat_id)
         await asyncio.sleep(5)
 
