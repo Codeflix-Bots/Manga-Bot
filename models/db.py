@@ -41,12 +41,7 @@ class MangaName(SQLModel, table=True):
 
 class DB(metaclass=LanguageSingleton):
     
-    def __init__(self, dbname: str = 'sqlite:///test.db'):
-        if dbname.startswith('postgres://'):
-            dbname = dbname.replace('postgres://', 'postgresql+asyncpg://', 1)
-        if dbname.startswith('sqlite'):
-            dbname = dbname.replace('sqlite', 'sqlite+aiosqlite', 1)
-    
+    def __init__(self, dbname: str = 'sqlite+aiosqlite:///test.db'):
         self.engine = create_async_engine(dbname)
         
     async def connect(self):

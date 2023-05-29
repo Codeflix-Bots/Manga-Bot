@@ -9,3 +9,10 @@ else:
     env_vars = dict(os.environ)
 
 dbname = env_vars.get('DATABASE_URL_PRIMARY') or env_vars.get('DATABASE_URL') or 'sqlite:///test.db'
+
+if dbname.startswith('postgres://'):
+    dbname = dbname.replace('postgres://', 'postgresql+asyncpg://', 1)
+elif dbname.startswith('postgresql://'):
+    dbname = dbname.replace('postgresql://', 'postgresql+asyncpg://', 1)
+elif dbname.startswith('sqlite'):
+    dbname = dbname.replace('sqlite', 'sqlite+aiosqlite', 1)
