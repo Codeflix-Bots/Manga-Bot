@@ -28,7 +28,7 @@ jobs:
           git pull origin prod
           docker container rm -f manga-bot-prod 2> /dev/null || true
           docker build . -t manga-bot-prod
-          docker run --name manga-bot-prod --restart=always -d \
+          docker run --name manga-bot-prod --restart=always -dti \
           --env BOT_TOKEN=${{ secrets.PROD_BOT_TOKEN }} \
           --env API_ID=${{ secrets.API_ID }} \
           --env API_HASH=${{ secrets.API_HASH }} \
