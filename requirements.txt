@@ -1,4 +1,4 @@
-aiohttp==3.7.4.post0
+aiohttp==3.8.4
 Pyrogram~=2.0.97
 beautifulsoup4~=4.8.0
 Pillow~=9.0.1
