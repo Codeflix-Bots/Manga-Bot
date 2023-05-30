@@ -153,6 +153,10 @@ async def on_private_message(client: Client, message: Message):
                             reply_markup=InlineKeyboardMarkup(
                                 [[InlineKeyboardButton('Join!', url=f't.me/{channel}')]]
                             ))
+    except pyrogram.ContinuePropagation:
+        raise
+    except pyrogram.StopPropagation:
+        raise
     except BaseException as e:
         logger.exception(e)
 
