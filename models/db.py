@@ -40,7 +40,7 @@ class MangaName(SQLModel, table=True):
 
 
 class DB(metaclass=LanguageSingleton):
-    
+
     def __init__(self, dbname: str = 'sqlite+aiosqlite:///test.db'):
         if dbname.startswith('postgres://'):
             dbname = dbname.replace('postgres://', 'postgresql+asyncpg://', 1)
@@ -50,7 +50,7 @@ class DB(metaclass=LanguageSingleton):
             dbname = dbname.replace('sqlite', 'sqlite+aiosqlite', 1)
 
         self.engine = create_async_engine(dbname)
-        
+
     async def connect(self):
         async with self.engine.begin() as conn:
             await conn.run_sync(SQLModel.metadata.create_all, checkfirst=True)
@@ -81,9 +81,15 @@ class DB(metaclass=LanguageSingleton):
                                                   (ChapterFile.telegraph_url == id))
             return (await session.exec(statement=statement)).first()
 
-    async def get_subs(self, user_id: str) -> List[MangaName]:
+    async def get_subs(self, user_id: str, filters=None) -> List[MangaName]:
         async with AsyncSession(self.engine) as session:
-            statement = select(MangaName).where(Subscription.user_id == user_id).where(Subscription.url == MangaName.url)
+            statement = (
+                select(MangaName)
+                .join(Subscription, Subscription.url == MangaName.url)
+                .where(Subscription.user_id == user_id)
+            )
+            for filter_ in filters or []:
+                statement = statement.where(MangaName.name.ilike(f'%{filter_}%') | MangaName.url.ilike(f'%{filter_}%'))
             return (await session.exec(statement=statement)).all()
 
     async def erase_subs(self, user_id: str):

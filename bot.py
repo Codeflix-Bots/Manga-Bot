@@ -206,29 +206,25 @@ async def on_refresh(client: Client, message: Message):
 @bot.on_message(filters=filters.command(['subs']))
 async def on_subs(client: Client, message: Message):
     db = DB()
-    subs = await db.get_subs(str(message.from_user.id))
+
+    filter_ = message.text.split(maxsplit=1)[1] if message.text.split(maxsplit=1)[1:] else ''
+    filter_list = [filter_.strip() for filter_ in filter_.split(' ') if filter_.strip()]
+
+    subs = await db.get_subs(str(message.from_user.id), filter_list)
+
     lines = []
-    for sub in subs:
+    for sub in subs[:10]:
         lines.append(f'<a href="{sub.url}">{sub.name}</a>')
         lines.append(f'`/cancel {sub.url}`')
         lines.append('')
 
     if not lines:
+        if filter_:
+            return await message.reply("You have no subscriptions with that filter.")
         return await message.reply("You have no subscriptions yet.")
 
-    body = []
-    counter = 0
-    for line in lines:
-        if counter + len(line) > 4000:
-            text = "\n".join(body)
-            await message.reply(f'Your subscriptions:\n\n{text}', disable_web_page_preview=True)
-            body = []
-            counter = 0
-        body.append(line)
-        counter += len(line)
-
-    text = "\n".join(body)
-    await message.reply(f'Your subscriptions:\n\n{text}', disable_web_page_preview=True)
+    text = "\n".join(lines)
+    await message.reply(f'Your subscriptions:\n\n{text}\n\nTo see more subscriptions use `/subs filter`', disable_web_page_preview=True)
 
 
 @bot.on_message(filters=filters.regex(r'^/cancel ([^ ]+)$'))
