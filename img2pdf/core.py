@@ -49,12 +49,8 @@ def unicode_to_latin1(s):
     s = s.replace('\u201d', '\x94')
     # Substitute the - character
     s = s.replace('\u2013', '\x96')
-    # Substitute the ... character
-    s = s.replace('\u2026', '\x85')
-    # Substitute the ... character
-    s = s.replace('\u2014', '\x97')
-    # Substitute the ... character
-    s = s.replace('\u201c', '\x93')
+    # Remove all other non-latin1 characters
+    s = s.encode('latin1', 'replace').decode('latin1')
     return s
 
 
