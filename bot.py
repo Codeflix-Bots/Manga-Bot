@@ -224,7 +224,7 @@ async def on_subs(client: Client, message: Message):
         return await message.reply("You have no subscriptions yet.")
 
     text = "\n".join(lines)
-    await message.reply(f'Your subscriptions:\n\n{text}\n\nTo see more subscriptions use `/subs filter`', disable_web_page_preview=True)
+    await message.reply(f'Your subscriptions:\n\n{text}\nTo see more subscriptions use `/subs filter`', disable_web_page_preview=True)
 
 
 @bot.on_message(filters=filters.regex(r'^/cancel ([^ ]+)$'))
