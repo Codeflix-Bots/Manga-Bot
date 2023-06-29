@@ -1,6 +1,7 @@
 from typing import List, AsyncIterable
 from urllib.parse import urlparse, urljoin, quote, quote_plus
 
+import aiohttp
 from bs4 import BeautifulSoup
 
 from models import LastChapter
@@ -18,7 +19,7 @@ class TMOClient(MangaClient):
     }
 
     def __init__(self, *args, name="TMO", **kwargs):
-        super().__init__(*args, name=name, headers=self.pre_headers, **kwargs)
+        super().__init__(*args, name=name, headers=self.pre_headers, connector=aiohttp.TCPConnector(verify_ssl=False), **kwargs)
 
     def mangas_from_page(self, page: bytes):
         bs = BeautifulSoup(page, "html.parser")
