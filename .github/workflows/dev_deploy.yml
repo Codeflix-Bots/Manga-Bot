@@ -3,8 +3,6 @@ name: DevDeploy
 # Controls when the workflow will run
 on:
   # Allows you to run this workflow manually from the Actions tab
-  push:
-    branches: [ "master" ]
   workflow_dispatch:
 
 
