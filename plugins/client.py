@@ -58,7 +58,9 @@ class MangaClient(ClientSession, metaclass=LanguageSingleton):
 
     async def get_url(self, url, *args, file_name=None, cache=False, req_content=True, method='get', data=None,
                       **kwargs):
-        def response(): pass
+        def response():
+            pass
+
         response.status = "200"
         if cache:
             path = Path(f'cache/{self.name}/{file_name}')
@@ -93,7 +95,12 @@ class MangaClient(ClientSession, metaclass=LanguageSingleton):
     async def set_pictures(self, manga_chapter: MangaChapter):
         requests_url = manga_chapter.url
 
-        response = await self.get(requests_url)
+        # Set manga url as the referer if there is one
+        headers = {**self.headers}
+        if manga_chapter.manga:
+            headers['referer'] = manga_chapter.manga.url
+
+        response = await self.get(requests_url, headers=headers)
 
         content = await response.read()
 

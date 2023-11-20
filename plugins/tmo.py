@@ -9,7 +9,7 @@ from plugins.client import MangaClient, MangaCard, MangaChapter
 
 
 class TMOClient(MangaClient):
-    base_url = urlparse("https://lectortmo.com/")
+    base_url = urlparse("https://visortmo.com/")
     search_url = urljoin(base_url.geturl(), "library")
     search_param = 'title'
     latest_uploads = urljoin(base_url.geturl(), "latest_uploads")
