@@ -115,7 +115,7 @@ class MangaClient(ClientSession, metaclass=LanguageSingleton):
         folder_name = f'{clean(manga_chapter.manga.name)}/{clean(manga_chapter.name)}'
         i = 0
         for picture in manga_chapter.pictures:
-            ext = picture.split('.')[-1]
+            ext = picture.split('.')[-1].split('?')[0].lower()
             file_name = f'{folder_name}/{format(i, "05d")}.{ext}'
             for _ in range(3):
                 req = await self.get_picture(manga_chapter, picture, file_name=file_name, cache=True,
