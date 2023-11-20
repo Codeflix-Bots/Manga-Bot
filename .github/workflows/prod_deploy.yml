@@ -35,4 +35,5 @@ jobs:
           --env CHANNEL=${{ secrets.PROD_CHANNEL }} \
           --env CACHE_CHANNEL=${{ secrets.CACHE_CHANNEL }} \
           --env DATABASE_URL_PRIMARY=${{ secrets.PROD_DATABASE_URI }} \
+          --env LOG_LEVEL=${{ secrets.PROD_LOG_LEVEL }} \
           manga-bot-prod 
