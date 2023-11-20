@@ -33,4 +33,5 @@ jobs:
           --env API_ID=${{ secrets.API_ID }} \
           --env API_HASH=${{ secrets.API_HASH }} \
           --env DATABASE_URL_PRIMARY=${{ secrets.DEV_DATABASE_URI }} \
+          --env LOG_LEVEL=${{ secrets.DEV_LOG_LEVEL }} \
           manga-bot-dev 
