@@ -8,7 +8,7 @@ from plugins.client import MangaClient, MangaCard, MangaChapter, LastChapter
 
 class AsuraScansClient(MangaClient):
 
-    base_url = urlparse("https://www.asurascans.com/")
+    base_url = urlparse("https://www.asuratoon.com/")
     search_url = base_url.geturl()
     search_param = 's'
     updates_url = base_url.geturl()
