@@ -155,7 +155,7 @@ async def on_private_message(client: Client, message: Message):
     except pyrogram.errors.UserNotParticipant:
         await message.reply("In order to use the bot you must join it's update channel.",
                             reply_markup=InlineKeyboardMarkup(
-                                [[InlineKeyboardButton('Join!', url=f't.me/{channel}')]]
+                                [[InlineKeyboardButton('ᴊᴏɪɴ ᴄʜᴀɴɴᴇʟ!', url=f't.me/{channel}')]]
                             ))
     except pyrogram.ContinuePropagation:
         raise
@@ -168,14 +168,14 @@ async def on_private_message(client: Client, message: Message):
 @bot.on_message(filters=filters.command(['start']))
 async def on_start(client: Client, message: Message):
     logger.info(f"User {message.from_user.id} started the bot")
-    await message.reply("Welcome to the best manga pdf bot in telegram!!\n"
+    await message.reply("›› **__Welcome to the best manga pdf bot in telegram!!\n"
                         "\n"
                         "How to use? Just type the name of some manga you want to keep up to date.\n"
                         "\n"
                         "For example:\n"
                         "`Fire Force`\n"
                         "\n"
-                        "Check /help for more information.")
+                        "Check /help for more information.__**")
     logger.info(f"User {message.from_user.id} finished the start command")
 
 
