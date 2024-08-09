@@ -1,28 +1,19 @@
+━━━━━━━━━━━━━━━━━━━━
+
+<h2 align="center">
+    ──「 ᴍᴀɴɢᴀ ʙᴏᴛ ʙʏ ᴄᴏᴅᴇғʟɪx 」──
+</h2>
+
 <p align="center">
-    <a href="https://github.com/Codeflix-Bots/mangabot">
-        <kbd>
-            <img width="250" src="https://graph.org/file/74a81a53cf1b87a2d1a34.jpg" alt="Manga Bot">
-        </kbd>
-    </a>
+  <img src="https://graph.org/file/6126c635b91aa6bd8a4b3.jpg">
 </p>
 
-<p align="center">
-<div align=center>
-<p align="center">
-<div align=center>
-
-[![GitHub forks](https://img.shields.io/github/forks/Dra-Sama/mangabot?style=social)](https://github.com/weebzone/WZML/fork)
-[![GitHub followers](https://img.shields.io/github/followers/Dra-sama?style=social&label=Dra-sama%20Followers)](https://github.com/)
-
-
- ## ***Manga Bot***
+_**ᴀᴠᴀɪʟᴀʙʟᴇ ᴏɴ ᴛᴇʟᴇɢʀᴀᴍ ᴀs [ᴍᴀɴɢᴀ ʙᴏᴛ](https://t.me/mangaflixbot)**_
 
 <div align=center>
 
 ℹ️ A Powerful Pyrogram Based Telegram Manga Downloader.|
 ---|
-    
-### ***Source Code*** : [Repo](Dra-Sama/mangabot)
 
 #### Note: `If you Like My Work, Give Stars ⭐ to the Repo and Follow Me on Github`
 ####    If You Want To Host Your Own Bot Then Change Your env.json File
