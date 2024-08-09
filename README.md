@@ -5,7 +5,7 @@
 </h2>
 
 <p align="center">
-  <img src="https://graph.org/file/6126c635b91aa6bd8a4b3.jpg">
+  <img src="https://graph.org/file/f94d80518bbd8e5011fef.jpg">
 </p>
 
 _**ᴀᴠᴀɪʟᴀʙʟᴇ ᴏɴ ᴛᴇʟᴇɢʀᴀᴍ ᴀs [ᴍᴀɴɢᴀ ʙᴏᴛ](https://t.me/mangaflixbot)**_
@@ -17,20 +17,6 @@ _**ᴀᴠᴀɪʟᴀʙʟᴇ ᴏɴ ᴛᴇʟᴇɢʀᴀᴍ ᴀs [ᴍᴀɴɢᴀ ʙᴏ
 
 #### Note: `If you Like My Work, Give Stars ⭐ to the Repo and Follow Me on Github`
 ####    If You Want To Host Your Own Bot Then Change Your env.json File
-    
-----
-</div>
-</p>
-
-
-### 1. [***Getting Started***](https://github.com/Codeflix-Bots/mangabot/wiki/Getting-Started)
-Introduction To the Bot
-
-### 2. [***Env Variables***](https://github.com/Codeflix-Bots/mangabot/wiki/Env-Variables)
-Bot Variables
-
-## 3. [***Deployment***](https://github.com/Codeflix-Bots/mangabot/wiki/Deployment)
-Way of Deployment Bot
 
 ━━━━━━━━━━━━━━━━━━━━
 
