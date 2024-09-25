@@ -1,3 +1,5 @@
+#asurascan.net fixed by r4h4t_69
+
 from typing import List, AsyncIterable
 from urllib.parse import urlparse, urljoin, quote, quote_plus
 
@@ -39,7 +41,9 @@ class AsuraScansClient(MangaClient):
     def chapters_from_page(self, page: bytes, manga: MangaCard = None):
         bs = BeautifulSoup(page, "html.parser")
 
-        li = bs.findAll("a", {"class": "block visited:text-themecolor"})
+        container = bs.find("div", {"class": "pl-4 pr-2 pb-4 overflow-y-auto scrollbar-thumb-themecolor scrollbar-track-transparent scrollbar-thin mr-3 max-h-[20rem] space-y-2.5"})
+        
+        li = container.find_all("a", {"class": "block"})
 
         a = "https://asuracomic.net/series/"
         links = [a + containers.get("href") for containers in li]
@@ -47,6 +51,7 @@ class AsuraScansClient(MangaClient):
         texts = [b + (sub.split('/')[6]) for sub in links]
 
         return list(map(lambda x: MangaChapter(self, x[0], x[1], manga, []), zip(texts, links)))
+
 
     def updates_from_page(self, content):
         bs = BeautifulSoup(content, "html.parser")
