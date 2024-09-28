@@ -12,8 +12,8 @@
 
 [![](https://img.shields.io/github/repo-size/Dra-Sama/mangabot?color=green&label=Repo%20Size&labelColor=292c3b)](#) [![](https://img.shields.io/github/commit-activity/m/Dra-Sama/mangabot?logo=github&labelColor=292c3b&label=Github%20Commits)](#) [![](https://img.shields.io/github/license/Dra-Sama/mangabot?style=flat&label=License&labelColor=292c3b)](#)|[![](https://img.shields.io/github/issues-raw/Dra-Sama/mangabot?style=flat&label=Open%20Issues&labelColor=292c3b)](#) [![](https://img.shields.io/github/issues-closed-raw/Dra-Sama/mangabot?style=flat&label=Closed%20Issues&labelColor=292c3b)](#) [![](https://img.shields.io/github/issues-pr-raw/Dra-Sama/mangabot?style=flat&label=Open%20Pull%20Requests&labelColor=292c3b)](#) [![](https://img.shields.io/github/issues-pr-closed-raw/Dra-Sama/mangabot?style=flat&label=Closed%20Pull%20Requests&labelColor=292c3b)](#)
 :---:|:---:|
-[![](https://img.shields.io/github/languages/count/Dra-Sama/mangabot?style=flat&label=Total%20Languages&labelColor=292c3b&color=blueviolet)](#) [![](https://img.shields.io/github/languages/top/Dra-Sama/mangabot?style=flat&logo=python&labelColor=292c3b)](#) [![](https://img.shields.io/github/last-commit/Dra-Sama/mangabot?style=flat&label=Last%20Commit&labelColor=292c3b&color=important)](#) [![](https://badgen.net/github/branches/Dra-Sama/mangabot?label=Total%20Branches&labelColor=292c3b)](#)|[![](https://img.shields.io/github/forks/Dra-Sama/mangabot?style=flat&logo=github&label=Forks&labelColor=292c3b&color=critical)](#) [![](https://img.shields.io/github/stars/Dra-Sama/mangabot?style=flat&logo=github&label=Stars&labelColor=292c3b&color=yellow)](#) [![](https://badgen.net/docker/pulls/codewithweeb/Dra-sama?icon=docker&label=Pulls&labelColor=292c3b&color=blue)](#)
-[![](https://img.shields.io/badge/Telegram%20Channel-Join-9cf?style=for-the-badge&logo=telegram&logoColor=blue&style=flat&labelColor=292c3b)](https://t.me/Wizard_bots) |[![](https://img.shields.io/badge/Support%20Group-Join-9cf?style=for-the-badge&logo=telegram&logoColor=blue&style=flat&labelColor=292c3b)](https://t.me/WizardBotHelper) |
+[![](https://img.shields.io/github/languages/count/Codeflix-Bots/Manga-Bot?style=flat&label=Total%20Languages&labelColor=292c3b&color=blueviolet)](#) [![](https://img.shields.io/github/languages/top/Codeflix-Bots/Manga-Bot?style=flat&logo=python&labelColor=292c3b)](#) [![](https://img.shields.io/github/last-commit/Codeflix-Bots/Manga-Bot?style=flat&label=Last%20Commit&labelColor=292c3b&color=important)](#) [![](https://badgen.net/github/branches/Codeflix-Bots/Manga-Bot?label=Total%20Branches&labelColor=292c3b)](#)|[![](https://img.shields.io/github/forks/Codeflix-Bots/Manga-Bot?style=flat&logo=github&label=Forks&labelColor=292c3b&color=critical)](#) [![](https://img.shields.io/github/stars/Codeflix-Bots/Manga-Bot?style=flat&logo=github&label=Stars&labelColor=292c3b&color=yellow)](#) [![](https://badgen.net/docker/pulls/codewithweeb/Dra-sama?icon=docker&label=Pulls&labelColor=292c3b&color=blue)](#)
+[![](https://img.shields.io/badge/Telegram%20Channel-Join-9cf?style=for-the-badge&logo=telegram&logoColor=blue&style=flat&labelColor=292c3b)](https://t.me/codeflix_bots) |[![](https://img.shields.io/badge/Support%20Group-Join-9cf?style=for-the-badge&logo=telegram&logoColor=blue&style=flat&labelColor=292c3b)](https://t.me/codeflixsupport) |
 
 </div>
 
@@ -26,7 +26,7 @@
 ℹ️ A Powerful Pyrogram Based Telegram Manga Downloader.|
 ---|
     
-### ***Source Code*** : [Repo](Dra-Sama/mangabot)
+### ***Source Code*** : [Repo](Codeflix-Bots/Manga-Bot)
 
 #### Note: `If you Like My Work, Give Stars ⭐ to the Repo and Follow Me on Github`
 ####    If You Want To Host Your Own Bot Then Change Your env.json File
@@ -51,10 +51,10 @@ Way of Deployment Bot
     ─「 ᴄʀᴇᴅɪᴛs 」─
 </h3>
 
-- <b>[Dra-Sama](https://github.com/Dra-sama)  ➻  [sᴏᴍᴇᴛʜɪɴɢ](https://github.com/Dra-sama/mangabot) </b>
-- <b>[🍀 Daniel Rivero 🍅](https://github.com/driverog)  ➻  [tg-manga-bot](https://github.com/driverog/tg-manga-bot) </b>
+- <b>[sᴜʙᴀʀᴜ](https://github.com/sewxiy)  ➻  [sᴏᴍᴇᴛʜɪɴɢ](https://github.com/Codeflix-Bots/Manga-Bot/tree/master) </b>
+- <b>[Dra-Sama](https://github.com/Dra-sama)  ➻  [ᴇᴠᴇʀʏᴛʜɪɴɢ](https://github.com/Dra-Sama/mangabot) </b>
 
-<b>And All [The Contributors](https://github.com/Dra-sama/mangabot/graphs/contributors) Who Helped In Making Manga Bot Useful And Powerful 🖤 </b>
+<b>And All [The Contributors](https://github.com/Codeflix-Bots/Manga-Bot/graphs/contributors) Who Helped In Making Manga Bot Useful And Powerful 🖤 </b>
 
 ━━━━━━━━━━━━━━━━━━━━
 
