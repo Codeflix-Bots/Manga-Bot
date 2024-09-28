@@ -1,0 +1,15 @@
+aiohttp~=3.9.0
+Pyrogram
+beautifulsoup4~=4.8.0
+requests
+Pillow~=10.1.0
+tgcrypto
+sqlmodel~=0.0.6
+asyncpg
+psycopg2-binary
+aiosqlite
+fpdf2~=2.6.0
+SQLAlchemy
+psutil~=5.9.0
+alembic
+loguru
