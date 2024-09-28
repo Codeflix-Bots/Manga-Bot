@@ -50,6 +50,7 @@ _**ᴀᴠᴀɪʟᴀʙʟᴇ ᴏɴ ᴛᴇʟᴇɢʀᴀᴍ ᴀs [ᴍᴀɴɢᴀ ʙᴏ
 </h3>
 
 - <b>[sᴜʙᴀʀᴜ](https://github.com/Codeflix-Bots)  ➻  [sᴏᴍᴇᴛʜɪɴɢ](https://github.com/Codeflix-Bots/mangabot/) </b>
+- <b>[ᴅʀᴀ sᴀᴍᴀ](https://github.com/Codeflix-Bots)  ➻  [ᴇᴠᴇʀʏᴛʜɪɴɢ](https://github.com/Dra-Sama) </b>
  
 <b>ᴀɴᴅ ᴀʟʟ [ᴛʜᴇ ᴄᴏɴᴛʀɪʙᴜᴛᴏʀs](https://github.com/Codeflix-Bots/mangabot/graphs/contributors) ᴡʜᴏ ʜᴇʟᴩᴇᴅ ɪɴ ᴍᴀᴋɪɴɢ manga ʀᴏʙᴏᴛ ᴜsᴇғᴜʟ & ᴩᴏᴡᴇʀғᴜʟ 🖤 </b>
 
