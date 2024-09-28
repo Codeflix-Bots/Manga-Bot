@@ -36,13 +36,13 @@
 </p>
 
 
-### 1. [***Getting Started***](https://github.com/Dra-Sama/mangabot/wiki/Getting-Started)
+### 1. [***Getting Started***](https://github.com/Codeflix-Bots/Manga-Bot/wiki/Getting-Started)
 Introduction To the Bot
 
-### 2. [***Env Variables***](https://github.com/Dra-Sama/mangabot/wiki/Env-Variables)
+### 2. [***Env Variables***](https://github.com/Codeflix-Bots/Manga-Bot/wiki/Env-Variables)
 Bot Variables
 
-## 3. [***Deployment***](https://github.com/Dra-Sama/mangabot/wiki/Deployment)
+## 3. [***Deployment***](https://github.com/Codeflix-Bots/Manga-Bot/wiki/Deployment)
 Way of Deployment Bot
 
 ━━━━━━━━━━━━━━━━━━━━
