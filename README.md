@@ -1,18 +1,12 @@
+━━━━━━━━━━━━━━━━━━━━
+
+<h2 align="center">
+    ──「 ᴍᴀɴɢᴀ ʙᴏᴛ 」──
+</h2>
+
 <p align="center">
-    <a href="https://github.com/Dra-Sama/mangabot">
-        <kbd>
-            <img width="250" src="https://te.legra.ph/file/d55e3cdf8a5d3eb8318e7.jpg" alt="Manga Bot">
-        </kbd>
-    </a>
+  <img src="https://i.ibb.co/6bkDx20/image.jpg">
 </p>
-
-<p align="center">
-<div align=center>
-<p align="center">
-<div align=center>
-
-[![GitHub forks](https://img.shields.io/github/forks/Dra-Sama/mangabot?style=social)](https://github.com/weebzone/WZML/fork)
-[![GitHub followers](https://img.shields.io/github/followers/Dra-sama?style=social&label=Dra-sama%20Followers)](https://github.com/Dra-sama)
 
 ----
 
