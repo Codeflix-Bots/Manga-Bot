@@ -154,7 +154,7 @@ async def on_private_message(client: Client, message: Message):
     except pyrogram.errors.UserNotParticipant:
         await message.reply("In order to use the bot you must join it's update channel.",
                             reply_markup=InlineKeyboardMarkup(
-                                [[InlineKeyboardButton('Join!', url=f't.me/{channel}')]]
+                                [[InlineKeyboardButton('ᴊᴏɪɴ ᴄʜᴀɴɴᴇʟ!', url=f't.me/{channel}')]]
                             ))
     except pyrogram.ContinuePropagation:
         raise
