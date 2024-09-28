@@ -12,4 +12,4 @@ Then you will have to choose the language of the manga. Depending on this langua
 /options - Disable/enable pdf, cbz and/or telegraph output format. This will determine what the bot will send you. 
 /help - Show this message.
 
-Updates Channel : @Wizard_bots
+Updates Channel : @Codeflix_Bots
